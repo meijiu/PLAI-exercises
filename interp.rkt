@@ -44,6 +44,10 @@
                       (num (calc named-expr))))]
     [id (v)(error 'calc "free identifier")]))
 
+;; subst: WAE symbol WAE -> WAE
+;; substitutes instances of the second argument for the third argument inside of
+;; the first argument
+
 (define (subst expr sub-id val)
   (type-case WAE expr
     [num (n) expr]
