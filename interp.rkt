@@ -40,7 +40,7 @@
     [sub (l r)(- (calc l)(calc r))]
     [with (bound-id named-expr bound-body)
           (calc(subst bound-body
-                      (drop bound-id) ; must pass symbol type as second arg to calc
+                      (drop bound-id) ; must pass symbol type as second arg to subst
                       (num (calc named-expr))))]
     [id (v)(error 'calc "free identifier")]))
 
