@@ -1,0 +1,5 @@
+Exercise 1.2.1: lhs and rhs sub-expressions are of type AE because there might be an arithmetic expression on either side of the expression.
+
+For example, an expression like: {+ 3 4} would be permitted if lhs and rhs were of type AE, but and expression like: {+ 3 {+ 1 2}} would be rejected since the rhs {+ 1 2} is not a num.
+
+Exercise 1.4.1: In XML, 'well-formed' means that the document must have a corresponding end tag for all of its start tags and 'valid' means that the document is well-formed.
