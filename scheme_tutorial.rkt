@@ -32,6 +32,40 @@
         [c (checker rp bp)] ; can call rp and bp from earlier binding
         [c4 (four c)])
     (four c4)))
+    
+;lexical scoping means that whenever an identifier
+;is used as an expression, something in the textual
+;environment of the expression determines the identifier's
+;binding
+
+(define (rgb-series mk)
+  (vc-append
+   (series (lambda (sz)(colorize (mk sz) "red")))
+   (series (lambda (sz)(colorize (mk sz) "green")))
+   (series (lambda (sz)(colorize (mk sz) "blue")))))
+
+(rgb-series circle)
+
+;outputs a function 
+(define (rgb-maker mk)
+  (lambda (sz)
+    (vc-append (colorize (mk sz) "red")
+               (colorize (mk sz) "green")
+               (colorize (mk sz) "blue"))))
+
+(series (rgb-maker circle))
+
+; the map function takes a function and a list
+; and applies the list to each element of the
+; function.
+
+(define (rainbow p sz)
+  (map (lambda (color)
+         (colorize (p sz) color))
+       (list "red" "orange" "yellow" "green" "blue")))
+
+; 'apply' allows the 
+(apply vc-append (rainbow square 10))
 
 
 
