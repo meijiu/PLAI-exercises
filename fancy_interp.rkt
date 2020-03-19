@@ -63,11 +63,12 @@
     [with (bound body)
           (let ([bound-id (binding-name (first bound))]
                 [named-expr (binding-named-expr (first bound))])
-          (if(symbol=? (drop bound-id) sub-id) ; must pass symbol type into if statement
-             (with (binding bound-id (subst named-expr sub-id val))
+          (if(symbol=? bound-id sub-id) ; must pass symbol type into if statement
+             (with (list (binding bound-id (subst named-expr sub-id val)))
                    body)
-             (with (binding bound-id (subst named-expr sub-id val))
+             (with (list (binding bound-id (subst named-expr sub-id val)))
                    (subst body sub-id val))))]
     [id (v)(if (symbol=? v sub-id) val expr)]))
 
 ;; Tests below:
+(test (calc (parse '{with {{x 2} {y 3}}{with {{z x}}{binop + x z}}})) 10)
