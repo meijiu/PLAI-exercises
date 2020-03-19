@@ -1,5 +1,4 @@
 #lang slideshow
-
 ;; Worked through examples from Quick Racket Tutorial
 
 (define r (rectangle 10 20))
@@ -38,13 +37,13 @@
 ;environment of the expression determines the identifier's
 ;binding
 
-(define (rgb-series mk)
-  (vc-append
-   (series (lambda (sz)(colorize (mk sz) "red")))
-   (series (lambda (sz)(colorize (mk sz) "green")))
-   (series (lambda (sz)(colorize (mk sz) "blue")))))
+;(define (rgb-series mk)
+;  (vc-append
+;   (series (lambda (sz)(colorize (mk sz) "red")))
+;   (series (lambda (sz)(colorize (mk sz) "green")))
+;   (series (lambda (sz)(colorize (mk sz) "blue")))))
 
-(rgb-series circle)
+;(rgb-series circle)
 
 ;outputs a function 
 (define (rgb-maker mk)
@@ -53,19 +52,23 @@
                (colorize (mk sz) "green")
                (colorize (mk sz) "blue"))))
 
-(series (rgb-maker circle))
+;(series (rgb-maker circle))
 
 ; the map function takes a function and a list
 ; and applies the list to each element of the
 ; function.
 
-(define (rainbow p sz)
+(define (rainbow sz)
   (map (lambda (color)
-         (colorize (p sz) color))
+         (colorize (square sz) color))
        (list "red" "orange" "yellow" "green" "blue")))
 
+(define (rainbows colors)
+  (map (lambda (color)
+         (colorize (square 10) color)) colors))
+
 ; 'apply' allows the 
-(apply vc-append (rainbow square 10))
+(apply vc-append (rainbow 10))
 
 
 

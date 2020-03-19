@@ -40,8 +40,8 @@
     [sub (l r)(- (calc l)(calc r))]
     [with (bound-id named-expr bound-body)
           (calc(subst bound-body
-                      (drop bound-id) ; must pass symbol type as second arg to subst
-                      (num (calc named-expr))))]
+                      (bound-id-name ; must pass symbol type as second arg to subst
+                      (num (calc named-expr)))))]
     [id (v)(error 'calc "free identifier")]))
 
 ;; subst: WAE symbol WAE -> WAE
@@ -56,7 +56,7 @@
     [sub (l r)(sub(subst l sub-id val)
                   (subst r sub-id val))]
     [with (bound-id named-expr bound-body)
-          (if(symbol=? (drop bound-id) sub-id) ; must pass symbol type into if statement
+          (if(symbol=? bound-id-name sub-id) ; must pass symbol type into if statement
              (with bound-id
                    (subst named-expr sub-id val)
                    bound-body)
@@ -68,7 +68,7 @@
 ;; Tests below:
 (test(calc(parse '{with {x 5} {+ x x}})) 10)
 (test(calc(parse '{with {x {+ 5 5}}{with {y {- x 3}} {+ y y}}})) 14)
-(test(calc(parse '{with {x 5} {+ x {with {x 3} 10}}})) 15)
+(test(calc(parse '{with {x 5}{+ x {with {x 3} 10}}})) 15)
 (test(calc(parse '{with {x 5}{+ x {with {x 3} x}}})) 8)
 (test(calc(parse '{with {x 5}{with {y x} y}})) 5)
 (test(calc(parse '{with {x 5}{with {x x} x}})) 5)
